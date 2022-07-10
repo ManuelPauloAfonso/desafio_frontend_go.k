@@ -1,12 +1,17 @@
 import React from "react";
 import { Header } from "../../components";
-import { Container } from "./styles";
+import UsersList from "../../components/usersList";
+import { Container, ContainerUsers } from "./styles";
 
 function Users() {
   return (
     <>
       <Header showAddLink={true} />
-      <Container></Container>
+      <Container>
+        <ContainerUsers>
+          <UsersList />
+        </ContainerUsers>
+      </Container>
     </>
   );
 }

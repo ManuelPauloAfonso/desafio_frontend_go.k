@@ -18,4 +18,8 @@ export const GlobalStyle = createGlobalStyle`
     border: none;
     background: none;
   }
+
+  ul, li, ol{
+    list-style: none;
+  }
 `;
