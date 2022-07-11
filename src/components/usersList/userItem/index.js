@@ -4,27 +4,34 @@ import { CgOrganisation } from "react-icons/cg";
 import { FaAngleRight, FaMapMarkerAlt } from "react-icons/fa";
 import { Container, DeleteContainer, UserInfoContainer } from "./styles";
 import { jonhDoeAvatar } from "../../../assets";
+import PropTypes from "prop-types";
+import { useContext } from "react";
+import { UsersContext } from "../../../context/context";
+import { useState } from "react";
 
-function UserItem() {
+function UserItem({ username, name, avatarUrl, company, id }) {
+  const { deleteUser } = useContext(UsersContext);
+  const [animationState, setAnimationState] = useState("paused");
+
   return (
-    <Container>
+    <Container animationState={animationState} animationName={id}>
       <UserInfoContainer>
         <div>
-          <img src={jonhDoeAvatar} alt="Avatar" />
+          <img src={avatarUrl ? avatarUrl : jonhDoeAvatar} alt="Avatar" />
           <div>
             <p>
-              <span>John Doe Santos</span>
+              <span>{name ? name : "John Doe Santos"}</span>
               <a href="/logo">
                 <FaAngleRight color="#000000" size={24} />
               </a>
             </p>
-            <strong>@johndoesantos</strong>
+            <strong>{username ? username : "@johndoesantos"}</strong>
           </div>
         </div>
         <ul>
           <li>
             <CgOrganisation color="#e5e5e5" size={16} />
-            <a href="/"> GO.K Digital</a>
+            <a href="/"> {company ? company : "GO.K Digital"} </a>
           </li>
           <li>
             <FaMapMarkerAlt color="#e5e5e5" size={16} />
@@ -36,7 +43,13 @@ function UserItem() {
         </ul>
       </UserInfoContainer>
       <DeleteContainer>
-        <button type="button">
+        <button
+          type="button"
+          onClick={() => {
+            setAnimationState("running");
+            setTimeout(() => deleteUser(id), 500);
+          }}
+        >
           <MdDelete color="#000000" size={24} />
         </button>
       </DeleteContainer>
@@ -44,6 +57,12 @@ function UserItem() {
   );
 }
 
-UserItem.propTypes = {};
+UserItem.propTypes = {
+  username: PropTypes.string,
+  name: PropTypes.string,
+  avatarUrl: PropTypes.string,
+  company: PropTypes.string,
+  id: PropTypes.number,
+};
 
 export default UserItem;

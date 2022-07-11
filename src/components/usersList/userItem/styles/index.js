@@ -1,4 +1,17 @@
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components";
+
+const deleting = keyframes`
+from{
+  /* height: 135px; */
+  /* width: 100%; */
+  transform: scale(1);
+}
+to{
+  /* height: 0; */
+  /* width: 0; */
+  transform: scale(0);
+}
+`;
 
 export const Container = styled.li`
   width: 100%;
@@ -12,6 +25,10 @@ export const Container = styled.li`
   border-radius: 8px;
   margin: 7px auto;
   padding: 16px 40px 16px 20px;
+
+  animation: ${deleting} 0.5s linear;
+  animation-play-state: ${(props) => props.animationState};
+  animation-fill-mode: forwards;
 `;
 
 export const DeleteContainer = styled.div`
@@ -27,6 +44,12 @@ export const DeleteContainer = styled.div`
     justify-content: center;
     background: #e8e8e8;
     border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.5s;
+
+    :hover {
+      transform: scale(1.2) rotateZ(360deg);
+    }
   }
 `;
 

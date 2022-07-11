@@ -35,20 +35,37 @@ const Context = ({ children }) => {
     SaveToLocalStorage([...users, newUser], USERS_KEY);
   };
 
+  const deleteUser = (userID) => {
+    let newUsers = users.filter((item) => item.id !== userID);
+    setUsers(newUsers);
+    SaveToLocalStorage(newUsers, USERS_KEY);
+    console.log("newUsers => ", newUsers);
+  };
+
+  const verifyIfUserExists = (username) => {
+    let userExists = users.find((item) => item.login === username);
+    if (userExists) return true;
+    return false;
+  };
+
   const addNewUser = async (username) => {
-    LoadingToast();
-    await octokit
-      .request("GET /users/{username}", {
-        username,
-      })
-      .then(({ data }) => {
-        LoadedToast("User Cadastrado com sucesso.", "INFO");
-        saveNewUser(data);
-      })
-      .catch(({ error }) => {
-        console.error(error);
-        LoadedToast("Este username não foi encontrado.", "ERROR");
-      });
+    if (!verifyIfUserExists(username)) {
+      LoadingToast();
+      await octokit
+        .request("GET /users/{username}", {
+          username,
+        })
+        .then(({ data }) => {
+          LoadedToast("User Cadastrado com sucesso.", "INFO");
+          saveNewUser(data);
+        })
+        .catch(({ error }) => {
+          console.error(error);
+          LoadedToast("Este username não foi encontrado.", "ERROR");
+        });
+    } else {
+      toast.warn("Este usuário já existe.!");
+    }
   };
 
   const LoadingToast = () =>
@@ -65,7 +82,7 @@ const Context = ({ children }) => {
 
   return (
     <>
-      <UsersContext.Provider value={{ users, addNewUser }}>
+      <UsersContext.Provider value={{ users, addNewUser, deleteUser }}>
         {children}
       </UsersContext.Provider>
     </>
