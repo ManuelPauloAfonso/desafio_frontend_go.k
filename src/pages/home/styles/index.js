@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import profileIcon from "../../../assets/images/account_circle.png";
 
 export const Container = styled.div`
@@ -17,8 +17,26 @@ export const WhiteContainer = styled.div`
   width: 35%;
   padding: 20px 40px;
 
+  > a {
+    width: 40px;
+    height: 40px;
+    position: relative;
+    top: 20px;
+    left: 10px;
+  }
+
   > div {
-    padding-top: 40px;
+    ${(props) => {
+      if (props.typeForm === "Add") {
+        return css`
+          margin-top: -40px;
+        `;
+      } else {
+        return css`
+          margin-top: 40px;
+        `;
+      }
+    }}
 
     img {
       margin-bottom: 40px;

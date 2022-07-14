@@ -2,8 +2,11 @@ import { useContext, useState } from "react";
 import { development_scene, githubLogo } from "../../assets";
 import { UsersContext } from "../../context/context";
 import { BlackContainer, Container, WhiteContainer } from "./styles";
+import ProtoTypes from "prop-types";
+import { Link } from "react-router-dom";
+import { AiOutlineArrowLeft } from "react-icons/ai";
 
-function Home() {
+function Home({ typeForm }) {
   const { addNewUser } = useContext(UsersContext);
   const [username, setUsername] = useState("");
 
@@ -23,14 +26,21 @@ function Home() {
 
   return (
     <Container>
-      <WhiteContainer>
+      <WhiteContainer typeForm={typeForm}>
+        {typeForm === "Add" && (
+          <Link to="/">
+            <AiOutlineArrowLeft color="#0f0f0f" size={26} />
+          </Link>
+        )}
         <div>
           <img src={githubLogo} alt="github-logo" />
           <h2>Buscar Usuário</h2>
 
           <form onSubmit={handleSubmit}>
             <label htmlFor="username">
-              Crie sua conta através do seu usuário do GitHub
+              {typeForm === "Cadastro"
+                ? " Crie sua conta através do seu usuário do GitHub"
+                : "  Adicione seus novos usuários do GitHub"}
             </label>
             <input
               type="search"
@@ -58,5 +68,9 @@ function Home() {
     </Container>
   );
 }
+
+Home.protoTypes = {
+  typeForm: ProtoTypes.oneOf(["Cadastro", "Add"]),
+};
 
 export default Home;
