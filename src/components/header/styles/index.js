@@ -15,7 +15,7 @@ export const Container = styled.header`
     height: 56px;
   }
 
-  a {
+  a:nth-child(2) {
     font-family: "Mulish";
     font-style: normal;
     font-weight: 400;

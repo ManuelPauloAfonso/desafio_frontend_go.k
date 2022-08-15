@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import { useContext } from "react";
 import { UsersContext } from "../../../context/context";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function UserItem({ username, name, avatarUrl, company, id }) {
   const { deleteUser } = useContext(UsersContext);
@@ -17,15 +18,21 @@ function UserItem({ username, name, avatarUrl, company, id }) {
     <Container animationState={animationState} animationName={id}>
       <UserInfoContainer>
         <div>
-          <img src={avatarUrl ? avatarUrl : jonhDoeAvatar} alt="Avatar" />
+          <Link to={`${username}`}>
+            <img src={avatarUrl ? avatarUrl : jonhDoeAvatar} alt="Avatar" />
+          </Link>
           <div>
-            <p>
-              <span>{name ? name : "John Doe Santos"}</span>
-              <a href="/logo">
-                <FaAngleRight color="#000000" size={24} />
-              </a>
-            </p>
-            <strong>{username ? username : "@johndoesantos"}</strong>
+            <Link to={`${username}`}>
+              <p>
+                <span>{name ? name : "John Doe Santos"}</span>
+                <a href="/logo">
+                  <FaAngleRight color="#000000" size={24} />
+                </a>
+              </p>
+            </Link>
+            <Link to={`${username}`}>
+              <strong>{username ? username : "@johndoesantos"}</strong>
+            </Link>
           </div>
         </div>
         <ul>

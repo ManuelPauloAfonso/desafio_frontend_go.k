@@ -39,7 +39,6 @@ const Context = ({ children }) => {
     let newUsers = users.filter((item) => item.id !== userID);
     setUsers(newUsers);
     SaveToLocalStorage(newUsers, USERS_KEY);
-    console.log("newUsers => ", newUsers);
   };
 
   const verifyIfUserExists = (username) => {

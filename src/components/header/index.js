@@ -7,9 +7,10 @@ function Header({ showAddLink }) {
   return (
     <>
       <Container justify={showAddLink ? "space-between" : "flex-start"}>
-        <img src={githubLogo} alt="github-logo" />
-
-        {showAddLink && <Link href="/add"> Adicionar novo </Link>}
+        <Link to="/">
+          <img src={githubLogo} alt="github-logo" />
+        </Link>
+        {showAddLink && <Link to="/add"> Adicionar novo </Link>}
       </Container>
     </>
   );
